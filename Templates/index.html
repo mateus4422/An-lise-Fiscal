@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Análise Fiscal</title>
+  </head>
+  <body>
+    <h1>Análise Fiscal</h1>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+      <p>
+        <label for="efd">Arquivo EFD (TXT):</label>
+        <input type="file" id="efd" name="efd">
+      </p>
+      <p>
+        <label for="cat">Arquivo CAT (TXT):</label>
+        <input type="file" id="cat" name="cat">
+      </p>
+      <p>
+        <label for="nf_original">Arquivo Nota Fiscal Original (XML):</label>
+        <input type="file" id="nf_original" name="nf_original">
+      </p>
+      <p>
+        <label for="nf_complementar">Arquivo Nota Fiscal Complementar (XML):</label>
+        <input type="file" id="nf_complementar" name="nf_complementar">
+      </p>
+      <!-- Adicionar campos para outros arquivos conforme necessário -->
+      <button type="submit">Enviar</button>
+    </form>
+  </body>
+</html>
