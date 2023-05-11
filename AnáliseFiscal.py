@@ -1,9 +1,9 @@
 import streamlit as st
 from notas_fiscais import notas_fiscais
-'from notas_complementares import notas_complementares
-'from efd import efd
+'from notas_complementares import notas_complementares'
+'from efd import efd'
 'from cat import cat'
-'from conversao_codigo import conversao_codigo
+'from conversao_codigo import conversao_codigo'
 'from analise_fiscal import analise_fiscal'
 
 def main():
