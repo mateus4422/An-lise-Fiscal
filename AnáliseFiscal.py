@@ -3,15 +3,13 @@ from notas_fiscais import notas_fiscais
 
 
 def main():
-# Configuração do layout
-st.set_page_config(page_title="Aplicativo de Análise Fiscal")
-
-# Título do aplicativo
-st.title("Aplicativo de Análise Fiscal")
-
-# Criação das guias na barra lateral
-opcao = st.sidebar.selectbox("Selecione uma opção","Notas Fiscais")
-
- if notasfiscais_choice == "Notas Fiscais":
-            notas_fiscais()
-
+ menu_options = ["Notas Fiscais", "Notas Complementares", "EFD",  "CAT"]
+    choice = st.sidebar.selectbox("Menu", menu_options)
+ 
+     if choice == "Notas Fiscais":
+        notasfiscais_options = ["Selecione uma opção", "Registro 1100"]
+        notasfiscais_choice = st.sidebar.selectbox("CAT", notasfiscais_options)
+        
+        if notasfiscais_choise == "Notas Fiscais":
+        st.subheader("Notas Fiscais")
+        notas_fiscais()
