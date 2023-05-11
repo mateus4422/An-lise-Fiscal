@@ -20,19 +20,19 @@ def notas_fiscais():
                 tree = ET.parse(xml_file)
                 root = tree.getroot()
 
-                for nfe in root.findall(".//NFe"):
-                    chave = nfe.find(".//chave").text
-                    item = nfe.find(".//item").text
-                    data_emissao = nfe.find(".//data_emissao").text
-                    cfop = nfe.find(".//cfop").text
-                    ncm = nfe.find(".//ncm").text
-                    codigo_produto = nfe.find(".//codigo_produto").text
-                    descricao = nfe.find(".//descricao").text
-                    quantidade = nfe.find(".//quantidade").text
-                    cean = nfe.find(".//cEAN").text
-                    vprod = nfe.find(".//vProd").text
-                    icms_vbcst = nfe.find(".//ICMS_vBCST").text
-                    icms_vbcstret = nfe.find(".//ICMS_vBCSTRet").text
+                for nfe in root.findall(".//NFe/infNFe"):
+                    chave = nfe.find(".//ide/Id").text
+                    item = nfe.find(".//det/item").text
+                    data_emissao = nfe.find(".//ide/dhEmi").text
+                    cfop = nfe.find(".//det/imposto/ICMS/ICMS00/CFOP").text
+                    ncm = nfe.find(".//det/prod/NCM").text
+                    codigo_produto = nfe.find(".//det/prod/cProd").text
+                    descricao = nfe.find(".//det/prod/xProd").text
+                    quantidade = nfe.find(".//det/prod/qCom").text
+                    cean = nfe.find(".//det/prod/cEAN").text
+                    vprod = nfe.find(".//det/prod/vProd").text
+                    icms_vbcst = nfe.find(".//det/imposto/ICMS/ICMS10/vBCST").text
+                    icms_vbcstret = nfe.find(".//det/imposto/ICMS/ICMS10/vBCSTRet").text
 
                     df = df.append({"Chave da Nota": chave, "Item da Nota": item, "Data de Emissão": data_emissao,
                                     "CFOP": cfop, "NCM": ncm, "Código do Produto": codigo_produto,
