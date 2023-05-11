@@ -1,4 +1,5 @@
 import streamlit as st
+import pandas as pd
 import xml.etree.ElementTree as ET
 
 def notas_fiscais():
@@ -8,6 +9,9 @@ def notas_fiscais():
     xml_files = st.file_uploader("Selecione os arquivos XML das notas fiscais", accept_multiple_files=True, type=".xml")
 
     if xml_files:
+        df = pd.DataFrame(columns=["Chave da Nota", "Item da Nota", "Data de Emissão", "CFOP", "NCM", "Código do Produto",
+                                   "Descrição da Nota", "Quantidade", "cEAN", "vProd", "ICMS vBCST", "ICMS vBCSTRet"])
+
         for xml_file in xml_files:
             st.subheader(f"Arquivo: {xml_file.name}")
 
@@ -30,20 +34,16 @@ def notas_fiscais():
                     icms_vbcst = nfe.find(".//icms_vbcst").text
                     icms_vbcstret = nfe.find(".//icms_vbcstret").text
 
-                    st.write("Chave da Nota:", chave)
-                    st.write("Item da Nota:", item)
-                    st.write("Data de Emissão da Nota:", data_emissao)
-                    st.write("CFOP:", cfop)
-                    st.write("NCM:", ncm)
-                    st.write("Código do Produto:", codigo_produto)
-                    st.write("Descrição da Nota:", descricao)
-                    st.write("Quantidade:", quantidade)
-                    st.write("cEAN:", cean)
-                    st.write("vProd:", vprod)
-                    st.write("ICMS vBCST:", icms_vbcst)
-                    st.write("ICMS vBCSTRet:", icms_vbcstret)
+                    df = df.append({"Chave da Nota": chave, "Item da Nota": item, "Data de Emissão": data_emissao,
+                                    "CFOP": cfop, "NCM": ncm, "Código do Produto": codigo_produto,
+                                    "Descrição da Nota": descricao, "Quantidade": quantidade,
+                                    "cEAN": cean, "vProd": vprod, "ICMS vBCST": icms_vbcst,
+                                    "ICMS vBCSTRet": icms_vbcstret}, ignore_index=True)
 
-                    st.markdown("---")
+                st.dataframe(df)
 
             except Exception as e:
                 st.error(f"Erro ao processar o arquivo XML: {e}")
+
+if __name__ == "__main__":
+    notas_fiscais()
