@@ -1,7 +1,10 @@
 import streamlit as st
 
-def notas_fiscais_complementar():
-    st.write("Conteúdo da guia Notas Fiscais + Complementar")
+def notas_fiscais():
+    st.write("Conteúdo da guia Notas Fiscais")
+    
+def nota_complementar():
+    st.write("Nota Complementar")
 
 def efd():
     st.write("Conteúdo da guia EFD")
@@ -14,7 +17,8 @@ def analise_fiscal():
 
 # Configuração das guias
 tabs = {
-    "Notas Fiscais + Complementar": notas_fiscais_complementar,
+    "Notas Fiscais ": notas_fiscais,
+    "Notas Complementares": nota_complementar,
     "EFD": efd,
     "CAT": cat,
     "Análise Fiscal": analise_fiscal
