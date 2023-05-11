@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import xml.etree.ElementTree as ET
+import xmltodict
 
 def notas_fiscais():
     st.header("Notas Fiscais")
@@ -16,25 +16,25 @@ def notas_fiscais():
             st.subheader(f"Arquivo: {xml_file.name}")
 
             try:
-                # Carregar o XML
-                tree = ET.parse(xml_file)
-                root = tree.getroot()
+                # Carregar o XML e converter para dicionário
+                xml_dict = xmltodict.parse(xml_file.read())
 
-                for nfe in root.findall(".//NFe/infNFe"):
-                    chave = nfe.find(".//ide/Id").text
-                    item = nfe.find(".//det/item").text
-                    data_emissao = nfe.find(".//ide/dhEmi").text
-                    cfop = nfe.find(".//det/imposto/ICMS/ICMS00/CFOP").text
-                    ncm = nfe.find(".//det/prod/NCM").text
-                    codigo_produto = nfe.find(".//det/prod/cProd").text
-                    descricao = nfe.find(".//det/prod/xProd").text
-                    quantidade = nfe.find(".//det/prod/qCom").text
-                    cean = nfe.find(".//det/prod/cEAN").text
-                    vprod = nfe.find(".//det/prod/vProd").text
-                    icms_vbcst = nfe.find(".//det/imposto/ICMS/ICMS10/vBCST").text
-                    icms_vbcstret = nfe.find(".//det/imposto/ICMS/ICMS10/vBCSTRet").text
+                # Extrair os dados dos campos desejados
+                chave = xml_dict['NFe']['infNFe']['ide']['Id']
+                for item in xml_dict['NFe']['infNFe']['det']:
+                    item_nota = item['nItem']
+                    data_emissao = xml_dict['NFe']['infNFe']['ide']['dhEmi']
+                    cfop = item['imposto']['ICMS']['ICMS00']['CFOP']
+                    ncm = item['prod']['NCM']
+                    codigo_produto = item['prod']['cProd']
+                    descricao = item['prod']['xProd']
+                    quantidade = item['prod']['qCom']
+                    cean = item['prod']['cEAN']
+                    vprod = item['prod']['vProd']
+                    icms_vbcst = item['imposto']['ICMS']['ICMS10']['vBCST']
+                    icms_vbcstret = item['imposto']['ICMS']['ICMS10']['vBCSTRet']
 
-                    df = df.append({"Chave da Nota": chave, "Item da Nota": item, "Data de Emissão": data_emissao,
+                    df = df.append({"Chave da Nota": chave, "Item da Nota": item_nota, "Data de Emissão": data_emissao,
                                     "CFOP": cfop, "NCM": ncm, "Código do Produto": codigo_produto,
                                     "Descrição da Nota": descricao, "Quantidade": quantidade,
                                     "cEAN": cean, "vProd": vprod, "ICMS vBCST": icms_vbcst,
