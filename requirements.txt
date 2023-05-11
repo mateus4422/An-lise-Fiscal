@@ -2,3 +2,4 @@ pandas
 streamlit
 click
 protobuf
+xmltodict
