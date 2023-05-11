@@ -21,18 +21,18 @@ def notas_fiscais():
                 root = tree.getroot()
 
                 for nfe in root.findall(".//NFe"):
-                    chave = nfe.find(".//chNFe").text
-                    item = nfe.find(".//nItem").text
-                    data_emissao = nfe.find(".//dhEmi").text
-                    cfop = nfe.find(".//CFOP").text
-                    ncm = nfe.find(".//NCM").text
-                    codigo_produto = nfe.find(".//cProd").text
-                    descricao = nfe.find(".//xProd").text
-                    quantidade = nfe.find(".//qCom").text
+                    chave = nfe.find(".//chave").text
+                    item = nfe.find(".//item").text
+                    data_emissao = nfe.find(".//data_emissao").text
+                    cfop = nfe.find(".//cfop").text
+                    ncm = nfe.find(".//ncm").text
+                    codigo_produto = nfe.find(".//codigo_produto").text
+                    descricao = nfe.find(".//descricao").text
+                    quantidade = nfe.find(".//quantidade").text
                     cean = nfe.find(".//cEAN").text
                     vprod = nfe.find(".//vProd").text
-                    icms_vbcst = nfe.find(".//vBCST").text
-                    icms_vbcstret = nfe.find(".//vBCSTRet").text
+                    icms_vbcst = nfe.find(".//ICMS_vBCST").text
+                    icms_vbcstret = nfe.find(".//ICMS_vBCSTRet").text
 
                     df = df.append({"Chave da Nota": chave, "Item da Nota": item, "Data de Emissão": data_emissao,
                                     "CFOP": cfop, "NCM": ncm, "Código do Produto": codigo_produto,
