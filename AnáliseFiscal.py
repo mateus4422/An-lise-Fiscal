@@ -1,28 +1,6 @@
 import streamlit as st
+from notas_fiscais import notas_fiscais
 
-def notas_fiscais():
-    st.write("Conteúdo da guia Notas Fiscais")
-    
-def nota_complementar():
-    st.write("Nota Complementar")
-
-def efd():
-    st.write("Conteúdo da guia EFD")
-
-def cat():
-    st.write("Conteúdo da guia CAT")
-
-def analise_fiscal():
-    st.write("Conteúdo da guia Análise Fiscal")
-
-# Configuração das guias
-tabs = {
-    "Notas Fiscais ": notas_fiscais,
-    "Notas Complementares": nota_complementar,
-    "EFD": efd,
-    "CAT": cat,
-    "Análise Fiscal": analise_fiscal
-}
 
 # Configuração do layout
 st.set_page_config(page_title="Aplicativo de Análise Fiscal")
@@ -31,5 +9,8 @@ st.set_page_config(page_title="Aplicativo de Análise Fiscal")
 st.title("Aplicativo de Análise Fiscal")
 
 # Criação das guias na barra lateral
-tab = st.sidebar.radio("Selecione uma guia", tuple(tabs.keys()))
-tabs[tab]()  # Chama a função correspondente à guia selecionada
+opcao = st.sidebar.selectbox("Selecione uma opção", ("Notas Fiscais"))
+
+if opcao == "Notas Fiscais":
+    notas_fiscais()
+
