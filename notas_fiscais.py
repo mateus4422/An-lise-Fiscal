@@ -31,7 +31,7 @@ def notas_fiscais():
                         codigo_produto = det.find("{http://www.portalfiscal.inf.br/nfe}prod/{http://www.portalfiscal.inf.br/nfe}cProd").text
                         descricao = det.find("{http://www.portalfiscal.inf.br/nfe}prod/{http://www.portalfiscal.inf.br/nfe}xProd").text
                         quantidade = det.find("{http://www.portalfiscal.inf.br/nfe}prod/{http://www.portalfiscal.inf.br/nfe}qCom").text
-                              cean = det.find("{http://www.portalfiscal.inf.br/nfe}prod/{http://www.portalfiscal.inf.br/nfe}cEAN").text
+                        cean = det.find("{http://www.portalfiscal.inf.br/nfe}prod/{http://www.portalfiscal.inf.br/nfe}cEAN").text
                         vprod = det.find("{http://www.portalfiscal.inf.br/nfe}prod/{http://www.portalfiscal.inf.br/nfe}vProd").text
                         icms_vbcst = det.find("{http://www.portalfiscal.inf.br/nfe}imposto/{http://www.portalfiscal.inf.br/nfe}ICMS/{http://www.portalfiscal.inf.br/nfe}ICMS10/{http://www.portalfiscal.inf.br/nfe}vBCST").text
                         icms_vbcstret = det.find("{http://www.portalfiscal.inf.br/nfe}imposto/{http://www.portalfiscal.inf.br/nfe}ICMS/{http://www.portalfiscal.inf.br/nfe}ICMS10/{http://www.portalfiscal.inf.br/nfe}vBCSTRet").text
