@@ -12,29 +12,30 @@ def main():
     menu_options = ["Notas Fiscais", "Notas Complementares", "EFD", "CAT", "Conversão de Código (NF Original)", "Análise Fiscal"]
     choices = st.sidebar.multiselect("Menu", menu_options)
 
-    if "Notas Fiscais" in choices:
-        st.write("## Notas Fiscais")
-        notas_fiscais()
+    for choice in choices:
+        if choice == "Notas Fiscais":
+            st.write("Notas Fiscais")
+            notas_fiscais()
 
-    if "Notas Complementares" in choices:
-        st.write("## Notas Complementares")
-        notas_complementares()
+        if choice == "Notas Complementares":
+            st.write("Notas Complementares")
+            notas_complementares()
 
-    if "EFD" in choices:
-        st.write("## EFD")
-        efd()
+        if choice == "EFD":
+            st.write("EFD")
+            efd()
 
-    if "CAT" in choices:
-        st.write("## CAT")
-        cat()
+        if choice == "CAT":
+            st.write("CAT")
+            cat()
 
-    if "Conversão de Código (NF Original)" in choices:
-        st.write("## Conversão de Código (NF Original)")
-        conversao_codigo()
+        if choice == "Conversão de Código (NF Original)":
+            st.write("Conversão de Código (NF Original)")
+            conversao_codigo()
 
-    if "Análise Fiscal" in choices:
-        st.write("## Análise Fiscal")
-        analise_fiscal()
+        if choice == "Análise Fiscal":
+            st.write("Análise Fiscal")
+            analise_fiscal()
 
 if __name__ == "__main__":
     main()
