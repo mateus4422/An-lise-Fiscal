@@ -1,23 +1,39 @@
 import streamlit as st
 from notas_fiscais import notas_fiscais
+'from notas_complementares import notas_complementares
+'from efd import efd
+'from cat import cat'
+'from conversao_codigo import conversao_codigo
+'from analise_fiscal import analise_fiscal'
 
 def main():
     st.title("Aplicativo de Análise Fiscal")
 
     menu_options = ["Notas Fiscais", "Notas Complementares", "EFD", "CAT", "Conversão de Código (NF Original)", "Análise Fiscal"]
-    choice = st.sidebar.selectbox("Menu", menu_options)
+    choices = st.sidebar.multiselect("Menu", menu_options)
 
-    if choice == "Notas Fiscais":
+    if "Notas Fiscais" in choices:
+        st.write("## Notas Fiscais")
         notas_fiscais()
-    elif choice == "Notas Complementares":
+
+    if "Notas Complementares" in choices:
+        st.write("## Notas Complementares")
         notas_complementares()
-    elif choice == "EFD":
+
+    if "EFD" in choices:
+        st.write("## EFD")
         efd()
-    elif choice == "CAT":
+
+    if "CAT" in choices:
+        st.write("## CAT")
         cat()
-    elif choice == "Conversão de Código (NF Original)":
+
+    if "Conversão de Código (NF Original)" in choices:
+        st.write("## Conversão de Código (NF Original)")
         conversao_codigo()
-    elif choice == "Análise Fiscal":
+
+    if "Análise Fiscal" in choices:
+        st.write("## Análise Fiscal")
         analise_fiscal()
 
 if __name__ == "__main__":
