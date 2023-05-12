@@ -78,3 +78,51 @@ def main():
 
     # Criação das guias na barra lateral
     menu_options = ["Notas Fiscais", "Not
+    icms_vbcst = root.find(".//vICMSSubstituto").text
+    icms_vbcstret = root.find(".//vICMSSTRet").text
+
+    # Criação do DataFrame
+    df = pd.DataFrame({
+        "Chave da Nota": [chave],
+        "Item da Nota": [item],
+        "Data de Emissão": [data_emissao],
+        "CFOP": [cfop],
+        "NCM": [ncm],
+        "Código do Produto": [codigo_produto],
+        "Descrição da Nota": [descricao],
+        "Quantidade": [quantidade],
+        "cEAN": [cean],
+        "vProd": [vprod],
+        "ICMS vBCST": [icms_vbcst],
+        "ICMS vBCSTRet": [icms_vbcstret]
+    })
+
+    # Exibição do DataFrame
+    st.dataframe(df)
+
+# Restante do código para as outras abas
+
+def main():
+    # Configuração do layout
+    st.set_page_config(page_title="Aplicativo de Análise Fiscal", layout="wide")
+
+    # Criação das guias na barra lateral
+    menu_options = ["Notas Fiscais", "Notas Complementares", "EFD", "CAT", "Conversão de Código (NF Original)", "Análise Fiscal"]
+    selected_option = st.sidebar.radio("Menu", menu_options)
+
+    # Renderização do conteúdo da guia selecionada
+    if selected_option == "Notas Fiscais":
+        notas_fiscais()
+    elif selected_option == "Notas Complementares":
+        notas_complementares()
+    elif selected_option == "EFD":
+        efd()
+    elif selected_option == "CAT":
+        cat()
+    elif selected_option == "Conversão de Código (NF Original)":
+        conversao_codigo()
+    elif selected_option == "Análise Fiscal":
+        analise_fiscal()
+
+if __name__ == "__main__":
+    main()
