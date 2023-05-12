@@ -3,4 +3,5 @@ streamlit
 click
 protobuf
 xmltodict
-bs4
+beautifulsoup4
+lxml
