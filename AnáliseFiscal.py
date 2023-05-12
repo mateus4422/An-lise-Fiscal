@@ -14,7 +14,7 @@ def main():
     choice = st.sidebar.radio("Selecione uma opção", menu_options)
 
     if choice == "Notas Fiscais":
-        notas_fiscais(file)
+        notas_fiscais()
 
     if choice == "Notas Complementares":
         notas_complementares()
