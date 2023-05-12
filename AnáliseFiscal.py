@@ -29,7 +29,7 @@ def main():
         conversao_codigo()
 
     if choice == "Análise Fiscal":
-        analise_fiscal()
+        analise_fiscal(file)
 
 if __name__ == "__main__":
     main()
