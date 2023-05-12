@@ -4,57 +4,77 @@ import xml.etree.ElementTree as ET
 
 def notas_fiscais():
     st.header("Notas Fiscais")
+    # Adicione aqui o código para a aba "Notas Fiscais"
 
-    # Selecionar múltiplos arquivos XML
-    xml_files = st.file_uploader("Selecione os arquivos XML das notas fiscais", accept_multiple_files=True, type=".xml")
+    # Exemplo de localização dos dados no XML
+    xml_data = """
+    <nota_fiscal>
+        <infProt>
+            <chNFe>123456789</chNFe>
+        </infProt>
+        <det>
+            <nItem>1</nItem>
+        </det>
+        <ide>
+            <dhEmi>2023-05-10</dhEmi>
+        </ide>
+        <prod>
+            <CFOP>5102</CFOP>
+            <NCM>1001</NCM>
+            <cProd>ABC123</cProd>
+            <xProd>Produto ABC</xProd>
+            <qCom>10</qCom>
+            <cEAN>7890123456789</cEAN>
+            <vProd>1000.00</vProd>
+        </prod>
+        <ICMS60>
+            <vICMSSubstituto>150.00</vICMSSubstituto>
+            <vICMSSTRet>25.00</vICMSSTRet>
+        </ICMS60>
+    </nota_fiscal>
+    """
 
-    if xml_files:
-        df = pd.DataFrame(columns=["Chave da Nota", "Item da Nota", "Data de Emissão", "CFOP", "NCM", "Código do Produto",
-                                   "Descrição da Nota", "Quantidade", "cEAN", "vProd", "ICMS vBCST", "ICMS vBCSTRet"])
+    # Parse do XML
+    root = ET.fromstring(xml_data)
 
-        for xml_file in xml_files:
-            st.subheader(f"Arquivo: {xml_file.name}")
+    # Extração dos dados do XML
+    chave = root.find(".//chNFe").text
+    item = root.find(".//nItem").text
+    data_emissao = root.find(".//dhEmi").text
+    cfop = root.find(".//CFOP").text
+    ncm = root.find(".//NCM").text
+    codigo_produto = root.find(".//cProd").text
+    descricao = root.find(".//xProd").text
+    quantidade = root.find(".//qCom").text
+    cean = root.find(".//cEAN").text
+    vprod = root.find(".//vProd").text
+    icms_vbcst = root.find(".//vICMSSubstituto").text
+    icms_vbcstret = root.find(".//vICMSSTRet").text
 
-            try:
-                # Carregar o XML
-                tree = ET.parse(xml_file)
-                root = tree.getroot()
+    # Criação do DataFrame
+    df = pd.DataFrame({
+        "Chave da Nota": [chave],
+        "Item da Nota": [item],
+        "Data de Emissão": [data_emissao],
+        "CFOP": [cfop],
+        "NCM": [ncm],
+        "Código do Produto": [codigo_produto],
+        "Descrição da Nota": [descricao],
+        "Quantidade": [quantidade],
+        "cEAN": [cean],
+        "vProd": [vprod],
+        "ICMS vBCST": [icms_vbcst],
+        "ICMS vBCSTRet": [icms_vbcstret]
+    })
 
-                for nfe in root.findall(".//{http://www.portalfiscal.inf.br/nfe}NFe"):
-                    chave = nfe.find(".//{http://www.portalfiscal.inf.br/nfe}infNFe/{http://www.portalfiscal.inf.br/nfe}ide/{http://www.portalfiscal.inf.br/nfe}Id").text
+    # Exibição do DataFrame
+    st.dataframe(df)
 
-                    for det in nfe.findall(".//{http://www.portalfiscal.inf.br/nfe}infNFe/{http://www.portalfiscal.inf.br/nfe}det"):
-                        item = det.find("{http://www.portalfiscal.inf.br/nfe}prod/{http://www.portalfiscal.inf.br/nfe}cProd").text
-                        data_emissao = det.find("{http://www.portalfiscal.inf.br/nfe}infNFe/{http://www.portalfiscal.inf.br/nfe}ide/{http://www.portalfiscal.inf.br/nfe}dhEmi").text
-                        cfop = det.find("{http://www.portalfiscal.inf.br/nfe}prod/{http://www.portalfiscal.inf.br/nfe}CFOP").text
-                        ncm = det.find("{http://www.portalfiscal.inf.br/nfe}prod/{http://www.portalfiscal.inf.br/nfe}NCM").text
-                        codigo_produto = det.find("{http://www.portalfiscal.inf.br/nfe}prod/{http://www.portalfiscal.inf.br/nfe}cProd").text
-                        descricao = det.find("{http://www.portalfiscal.inf.br/nfe}prod/{http://www.portalfiscal.inf.br/nfe}xProd").text
-                        quantidade = det.find("{http://www.portalfiscal.inf.br/nfe}prod/{http://www.portalfiscal.inf.br/nfe}qCom").text
-                        cean = det.find("{http://www.portalfiscal.inf.br/nfe}prod/{http://www.portalfiscal.inf.br/nfe}cEAN").text
-                        vprod = det.find("{http://www.portalfiscal.inf.br/nfe}prod/{http://www.portalfiscal.inf.br/nfe}vProd").text
-                        icms_vbcst = det.find("{http://www.portalfiscal.inf.br/nfe}imposto/{http://www.portalfiscal.inf.br/nfe}ICMS/{http://www.portalfiscal.inf.br/nfe}ICMS10/{http://www.portalfiscal.inf.br/nfe}vBCST").text
-                        icms_vbcstret = det.find("{http://www.portalfiscal.inf.br/nfe}imposto/{http://www.portalfiscal.inf.br/nfe}ICMS/{http://www.portalfiscal.inf.br/nfe}ICMS10/{http://www.portalfiscal.inf.br/nfe}vBCSTRet").text
+# Restante do código para as outras abas
 
-                        # Adicionar os dados ao DataFrame
-                        df = df.append({"Chave da Nota": chave,
-                                        "Item da Nota": item,
-                                        "Data de Emissão": data_emissao,
-                                        "CFOP": cfop,
-                                        "NCM": ncm,
-                                        "Código do Produto": codigo_produto,
-                                        "Descrição da Nota": descricao,
-                                        "Quantidade": quantidade,
-                                        "cEAN": cean,
-                                        "vProd": vprod,
-                                        "ICMS vBCST": icms_vbcst,
-                                        "ICMS vBCSTRet": icms_vbcstret}, ignore_index=True)
-            except Exception as e:
-                st.error(f"Erro ao processar o arquivo XML: {e}")
+def main():
+    # Configuração do layout
+    st.set_page_config(page_title="Aplicativo de Análise Fiscal", layout="wide")
 
-        # Exibir o DataFrame
-        st.write("Dados das Notas Fiscais:")
-        st.dataframe(df)
-
-if __name__ == "__main__":
-    notas_fiscais()
+    # Criação das guias na barra lateral
+    menu_options = ["Notas Fiscais", "Not
