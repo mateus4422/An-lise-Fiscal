@@ -37,6 +37,7 @@ def extract_data(file):
     
     return data
 # Cria a interface do Streamlit
+# Cria a interface do Streamlit
 st.title('Carregador de Notas Fiscais')
 
 # Cria um seletor de arquivos para vários arquivos
@@ -44,8 +45,8 @@ files = st.file_uploader('Upload your XML files', type=['xml'], accept_multiple_
 
 # Se algum ou mais arquivos foram carregados
 if files:
-    # Inicializa um DataFrame vazio
-    data = pd.DataFrame()
+    # Inicializa uma lista vazia para armazenar os DataFrames individuais de cada arquivo
+    dataframes = []
 
     # Itera sobre os arquivos carregados
     for file in files:
@@ -55,9 +56,12 @@ if files:
         # Cria um DataFrame com os dados do arquivo
         file_df = pd.DataFrame(file_data)
         
-        # Adiciona os dados do arquivo ao DataFrame geral
-        data = data.append(file_df, ignore_index=True)
-
+        # Adiciona o DataFrame do arquivo à lista
+        dataframes.append(file_df)
+    
+    # Concatena todos os DataFrames em um DataFrame geral
+    data = pd.concat(dataframes, ignore_index=True)
+    
     # Exibe os dados
     st.write(data)
 
