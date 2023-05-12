@@ -3,7 +3,7 @@ import pandas as pd
 from bs4 import BeautifulSoup
 
 def notas_fiscais():
-    # Função para extrair os dados do XML
+# Função para extrair os dados do XML
     def extract_data(file):
         bs = BeautifulSoup(file, 'xml')
 
@@ -28,21 +28,28 @@ def notas_fiscais():
             data.append(product_data)
 
         return data
-    # Função principal
-    def main():
-        st.title('Carregador de Notas Fiscais')
 
-        files = st.file_uploader('Upload your XML files', type=['xml'], accept_multiple_files=True)
+    # Cria a interface do Streamlit
+    st.title('Carregador de Notas Fiscais')
 
-        if files:
-            all_data = []
-            for file in files:
-                file_data = extract_data(file)
-                all_data.extend(file_data)
+    # Cria um seletor de arquivos para vários arquivos
+    files = st.file_uploader('Upload your XML files', type=['xml'], accept_multiple_files=True)
 
-            df = pd.DataFrame(all_data)
-            st.write(df)
+    # Se algum ou mais arquivos foram carregados
+    if files:
+        # Inicializa uma lista vazia para armazenar todos os dados
+        all_data = []
 
-    # Execução principal
-    if __name__ == '__main__':
-        main()
+        # Itera sobre os arquivos carregados
+        for file in files:
+            # Extrai os dados do arquivo XML
+            file_data = extract_data(file)
+
+            # Adiciona os dados do arquivo à lista geral
+            all_data.extend(file_data)
+
+        # Cria um DataFrame com todos os dados
+        df = pd.DataFrame(all_data)
+
+        # Exibe os dados
+        st.write(df)
