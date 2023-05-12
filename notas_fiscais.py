@@ -27,20 +27,13 @@ def extract_data(file):
         data.append(product_data)
 
     return data
+# Importando a função de notas fiscais
+from notas_fiscais import notas_fiscais
+
 # Função principal
 def main():
     st.title('Carregador de Notas Fiscais')
-
-    files = st.file_uploader('Upload your XML files', type=['xml'], accept_multiple_files=True)
-
-    if files:
-        all_data = []
-        for file in files:
-            file_data = extract_data(file)
-            all_data.extend(file_data)
-
-        df = pd.DataFrame(all_data)
-        st.write(df)
+    notas_fiscais()
 
 # Execução principal
 if __name__ == '__main__':
