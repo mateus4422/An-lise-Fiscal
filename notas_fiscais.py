@@ -1,9 +1,10 @@
 import streamlit as st
 import pandas as pd
+from bs4 import BeautifulSoup
 
 
 def notas_fiscais():
-    # Função para extrair os dados do XML
+# Função para extrair os dados do XML
     def extract_data(file):
         bs = BeautifulSoup(file, 'xml')
 
