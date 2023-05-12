@@ -53,3 +53,34 @@ def notas_fiscais():
 
         # Exibe os dados
         st.write(data)
+# Cria a interface do Streamlit
+st.title('Carregador de Notas Fiscais')
+
+# Cria um seletor de arquivos para vários arquivos
+files = st.file_uploader('Upload your XML files', type=['xml'], accept_multiple_files=True)
+
+# Se um ou mais arquivos foram carregados
+if files:
+    # Inicializa um DataFrame vazio
+    data = pd.DataFrame()
+
+    # Loop por todos os arquivos e extrai os dados
+    for file in files:
+        file_data = extract_data(file)
+        data = data.append(file_data, ignore_index=True)
+
+    # Cria filtros para Chave do produto, EAN e Código do produto
+    chave_filter = st.multiselect('Chave do produto', options=data['Chave do produto'].unique())
+    ean_filter = st.multiselect('EAN do produto', options=data['EAN do produto'].unique())
+    codigo_filter = st.multiselect('Código do produto', options=data['Código do produto'].unique())
+
+    # Aplica os filtros
+    if chave_filter:
+        data = data[data['Chave do produto'].isin(chave_filter)]
+    if ean_filter:
+        data = data[data['EAN do produto'].isin(ean_filter)]
+    if codigo_filter:
+        data = data[data['Código do produto'].isin(codigo_filter)]
+
+    # Exibe os dados
+    st.write(data)
