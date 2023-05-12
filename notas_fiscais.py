@@ -38,24 +38,28 @@ def notas_fiscais(file):
     # Retorna os dados como um DataFrame
     return pd.DataFrame(data)
 
-# Cria a interface do Streamlit
-st.title('Carregador de Notas Fiscais')
+def main():
+    # Cria a interface do Streamlit
+    st.title('Carregador de Notas Fiscais')
 
-# Cria um seletor de arquivos para vários arquivos
-files = st.file_uploader('Upload your XML files', type=['xml'], accept_multiple_files=True)
+    # Cria um seletor de arquivos para vários arquivos
+    files = st.file_uploader('Upload your XML files', type=['xml'], accept_multiple_files=True)
 
-# Se um ou mais arquivos foram carregados
-if files:
-    # Inicializa uma lista para armazenar os DataFrames
-    dataframes = []
+    # Se um ou mais arquivos foram carregados
+    if files:
+        # Inicializa uma lista para armazenar os DataFrames
+        dataframes = []
 
-    # Loop por todos os arquivos e extrai os dados
-    for file in files:
-        file_data = notas_fiscais(file)
-        dataframes.append(file_data)
+        # Loop por todos os arquivos e extrai os dados
+        for file in files:
+            file_data = notas_fiscais(file)
+            dataframes.append(file_data)
 
-    # Concatena todos os dataframes
-    data = pd.concat(dataframes, ignore_index=True)
+        # Concatena todos os dataframes
+        data = pd.concat(dataframes, ignore_index=True)
 
-    # Exibe os dados
-    st.write(data)
+        # Exibe os dados
+        st.write(data)
+
+if __name__ == "__main__":
+    main()
