@@ -4,7 +4,8 @@ import pandas as pd
 from bs4 import BeautifulSoup
 
 def notas_fiscais():
-# Função para extrair os dados do XML
+
+    # Função para extrair os dados do XML
     def extract_data(file):
         # Cria um objeto BeautifulSoup
         bs = BeautifulSoup(file, 'lxml')
@@ -12,11 +13,14 @@ def notas_fiscais():
         # Inicializa uma lista vazia para armazenar os dados de todos os produtos
         data = []
 
+        # Extrai a chave de acesso da nota fiscal
+        chave_nfe = bs.find('infprot').chnfe.string if bs.find('infprot') and bs.find('infprot').chnfe else None
+
         # Itera sobre todos os elementos <det>
         for det in bs.find_all('det'):
             # Extrai os dados necessários
             product_data = {
-                'Chave do produto': bs.find('infprot').get('chnfe'),
+                'Chave do produto': chave_nfe,
                 'Código de Item': det.get('nitem'),
                 'Data de emissão': bs.find('ide').dhemi.string,
                 'CFOP do produto': det.prod.cfop.string,
