@@ -3,7 +3,6 @@ import pandas as pd
 from bs4 import BeautifulSoup
 
 def notas_fiscais():
-    
     def extract_data(file):
         bs = BeautifulSoup(file, 'xml')
 
@@ -31,17 +30,22 @@ def notas_fiscais():
     def main():
         st.title('Carregador de Notas Fiscais')
 
+        # Cria um seletor de arquivos
         files = st.file_uploader('Upload your XML files', type=['xml'], accept_multiple_files=True)
 
+        # Se arquivos foram carregados
         if files:
             all_data = []
 
+            # Itera sobre os arquivos
             for file in files:
                 file_data = extract_data(file)
                 all_data.extend(file_data)
 
+            # Cria um DataFrame com os dados
             df = pd.DataFrame(all_data)
 
+            # Exibe os dados
             st.write(df)
 
     if __name__ == '__main__':
