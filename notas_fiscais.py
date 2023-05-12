@@ -27,7 +27,7 @@ def notas_fiscais()
             data.append(product_data)
 
         return data
-    def notas_fiscais():
+    def notas_fiscais2():
         st.title('Carregador de Notas Fiscais')
 
         files = st.file_uploader('Upload your XML files', type=['xml'], accept_multiple_files=True)
@@ -43,4 +43,4 @@ def notas_fiscais()
 
             st.write(df)
 
-    notas_fiscais()
+    notas_fiscais2()
