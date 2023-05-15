@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import re
 
 def notas_complementares():
     # Cria a interface do Streamlit
@@ -16,12 +17,12 @@ def notas_complementares():
         # Exibe o dataframe completo
         st.write(df)
 
-        # Remove as vírgulas das colunas 'Código de Produto' (cProd), 'CFOP' e 'NCM'
-        df['cProd'] = df['cProd'].str.replace(',', '')
-        df['CFOP'] = df['CFOP'].str.replace(',', '')
-        df['NCM'] = df['NCM'].str.replace(',', '')
+        # Remove caracteres especiais das colunas 'Código de Produto' (cProd), 'CFOP' e 'NCM'
+        df['cProd'] = df['cProd'].apply(lambda x: re.sub(r'\W+', '', str(x)))
+        df['CFOP'] = df['CFOP'].apply(lambda x: re.sub(r'\W+', '', str(x)))
+        df['NCM'] = df['NCM'].apply(lambda x: re.sub(r'\W+', '', str(x)))
 
-        # Exibe o dataframe com as vírgulas removidas
+        # Exibe o dataframe com os caracteres especiais removidos
         st.write(df)
 
         # Solicita ao usuário para inserir a chave e o código do produto
