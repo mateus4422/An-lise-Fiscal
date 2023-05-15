@@ -1,56 +1,42 @@
 import streamlit as st
 import pandas as pd
-from bs4 import BeautifulSoup
+import re
 
 def notas_fiscais():
-# Função para extrair os dados do XML
-    def extract_data(file):
-        bs = BeautifulSoup(file, 'xml')
-
-        chave_nfe = bs.find('infProt').find('chNFe').text if bs.find('infProt') else None
-
-
-        data = []
-        for det in bs.find_all('det'):
-            product_data = {
-                'Chave do produto': chave_nfe,
-                'Código de Item': det.get('nItem'),
-                'Data de emissão': bs.find('ide').find('dhEmi').string if bs.find('ide') and bs.find('ide').find('dhEmi') else None,
-                'CFOP do produto': det.find('prod').find('CFOP').string if det.find('prod') and det.find('prod').find('CFOP') else None,
-                'NCM do produto': det.find('prod').find('NCM').string if det.find('prod') and det.find('prod').find('NCM') else None,
-                'Código do produto': det.find('prod').find('cProd').string if det.find('prod') and det.find('prod').find('cProd') else None,
-                'Descrição do Produto': det.find('prod').find('xProd').string if det.find('prod') and det.find('prod').find('xProd') else None,
-                'Quantidade do produto': det.find('prod').find('qCom').string if det.find('prod') and det.find('prod').find('qCom') else None,
-                'EAN do produto': det.find('prod').find('cEAN').string if det.find('prod') and det.find('prod').find('cEAN') else None,
-                'Valor do Produto': det.find('prod').find('vProd').string if det.find('prod') and det.find('prod').find('vProd') else None,
-                'ICMS do produto': det.find('ICMS60').find('vICMSSubstituto').string if det.find('ICMS60') and det.find('ICMS60').find('vICMSSubstituto') else None,
-                'ICMS ret do produto': det.find('ICMS60').find('vICMSSTRet').string if det.find('ICMS60') and det.find('ICMS60').find('vICMSSTRet') else None,
-            }
-            data.append(product_data)
-
-        return data
-
     # Cria a interface do Streamlit
-    st.title('Carregador de Notas Fiscais')
+    st.title('Carregador de Notas Fiscais Complementares')
 
     # Cria um seletor de arquivos para vários arquivos
-    files = st.file_uploader('Upload your XML files', type=['xml'], accept_multiple_files=True)
+    uploaded_file = st.file_uploader('Upload your XLSX file', type=['xlsx'])
 
-    # Se algum ou mais arquivos foram carregados
-    if files:
-        # Inicializa uma lista vazia para armazenar todos os dados
-        all_data = []
+    # Se algum arquivo foi carregado
+    if uploaded_file:
+        # Lê os dados do arquivo XLSX
+        df = pd.read_excel(uploaded_file)
 
-        # Itera sobre os arquivos carregados
-        for file in files:
-            # Extrai os dados do arquivo XML
-            file_data = extract_data(file)
+        # Remove caracteres especiais das colunas 'Código de Produto' (cProd), 'CFOP' e 'NCM'
+        if 'Código de Produto' in df.columns:
+            df['Código de Produto'] = df['Código de Produto'].apply(lambda x: re.sub(r'\W+', '', str(x)))
 
-            # Adiciona os dados do arquivo à lista geral
-            all_data.extend(file_data)
+        if 'CFOP' in df.columns:
+            df['CFOP'] = df['CFOP'].apply(lambda x: re.sub(r'\W+', '', str(x)))
 
-        # Cria um DataFrame com todos os dados
-        df = pd.DataFrame(all_data)
+        if 'NCM' in df.columns:
+            df['NCM'] = df['NCM'].apply(lambda x: re.sub(r'\W+', '', str(x)))
 
-        # Exibe os dados
+        # Exibe o dataframe com as alterações
         st.write(df)
+
+        # Solicita ao usuário para inserir a chave e o código do produto
+        chave = st.text_input("Digite a Chave Original (chNFe)")
+        codigo_produto = st.text_input("Digite o Código do Produto (Código de Produto)")
+
+        # Se o usuário digitou a chave e o código do produto
+        if chave and codigo_produto:
+            # Filtra o dataframe para mostrar apenas as linhas que correspondem à chave e ao código do produto
+            filtered_df = df[(df['chNFe'] == chave) & (df['Código de Produto'] == codigo_produto)]
+            
+            # Exibe os dados filtrados
+            st.write(filtered_df)
+
+notas_fiscais()
