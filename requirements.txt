@@ -5,3 +5,4 @@ protobuf
 xmltodict
 beautifulsoup4
 lxml
+openpyxl
