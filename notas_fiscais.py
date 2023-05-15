@@ -7,7 +7,8 @@ def notas_fiscais():
     def extract_data(file):
         bs = BeautifulSoup(file, 'xml')
 
-        chave_nfe = bs.find('infProt').get('chNFe') if bs.find('infProt') else None
+        chave_nfe = bs.find('infProt').find('chNFe').text if bs.find('infProt') else None
+
 
         data = []
         for det in bs.find_all('det'):
