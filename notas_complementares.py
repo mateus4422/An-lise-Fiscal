@@ -30,7 +30,7 @@ def notas_complementares():
         return data
 
     # Cria a interface do Streamlit
-    st.title('Carregador de Notas Fiscais')
+    st.title('Carregador de Notas Complementares')
 
     # Cria um seletor de arquivos para vários arquivos
     files = st.file_uploader('Upload your XML files', type=['xml'], accept_multiple_files=True)
