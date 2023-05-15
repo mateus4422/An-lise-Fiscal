@@ -4,7 +4,7 @@ import re
 
 def notas_fiscais():
     # Cria a interface do Streamlit
-    st.title('Carregador de Notas Fiscais Complementares')
+    st.title('Carregador de Notas Fiscais Originais')
 
     # Cria um seletor de arquivos para vários arquivos
     uploaded_file = st.file_uploader('Upload your XLSX file', type=['xlsx'])
