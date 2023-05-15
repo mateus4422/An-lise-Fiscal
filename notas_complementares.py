@@ -18,21 +18,26 @@ def notas_complementares():
         st.write(df)
 
         # Remove caracteres especiais das colunas 'Código de Produto' (cProd), 'CFOP' e 'NCM'
-        df['cProd'] = df['cProd'].apply(lambda x: re.sub(r'\W+', '', str(x)))
-        df['CFOP'] = df['CFOP'].apply(lambda x: re.sub(r'\W+', '', str(x)))
-        df['NCM'] = df['NCM'].apply(lambda x: re.sub(r'\W+', '', str(x)))
+        if 'Código de Produto' in df.columns:
+            df['Código de Produto'] = df['Código de Produto'].apply(lambda x: re.sub(r'\W+', '', str(x)))
+
+        if 'CFOP' in df.columns:
+            df['CFOP'] = df['CFOP'].apply(lambda x: re.sub(r'\W+', '', str(x)))
+
+        if 'NCM' in df.columns:
+            df['NCM'] = df['NCM'].apply(lambda x: re.sub(r'\W+', '', str(x)))
 
         # Exibe o dataframe com os caracteres especiais removidos
         st.write(df)
 
         # Solicita ao usuário para inserir a chave e o código do produto
-        chave = st.text_input("Digite a Chave Complementar (chNFe)")
-        codigo_produto = st.text_input("Digite o Código do Produto (cProd)")
+        chave = st.text_input("Digite a Chave Original (chNFe)")
+        codigo_produto = st.text_input("Digite o Código do Produto (Código de Produto)")
 
         # Se o usuário digitou a chave e o código do produto
         if chave and codigo_produto:
             # Filtra o dataframe para mostrar apenas as linhas que correspondem à chave e ao código do produto
-            filtered_df = df[(df['chNFe'] == chave) & (df['cProd'] == codigo_produto)]
+            filtered_df = df[(df['chNFe'] == chave) & (df['Código de Produto'] == codigo_produto)]
             
             # Exibe os dados filtrados
             st.write(filtered_df)
