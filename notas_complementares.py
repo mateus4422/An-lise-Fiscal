@@ -16,36 +16,12 @@ def notas_complementares():
         # Exibe o dataframe completo
         st.write(df)
 
-        # Obtem a lista de colunas do dataframe
-        colunas = df.columns
+        # Remove as vírgulas das colunas 'Código de Produto' (cProd), 'CFOP' e 'NCM'
+        df['cProd'] = df['cProd'].str.replace(',', '')
+        df['CFOP'] = df['CFOP'].str.replace(',', '')
+        df['NCM'] = df['NCM'].str.replace(',', '')
 
-        # Cria um dicionário para mapear os tipos de dados para os widgets do Streamlit
-        tipos_dados = {
-            'int64': 'Inteiro',
-            'float64': 'Decimal',
-            'datetime64[ns]': 'Data'
-        }
-
-        # Cria filtros para cada coluna do dataframe
-        for coluna in colunas:
-            # Obtém o tipo de dado da coluna
-            tipo_dado = df[coluna].dtype
-
-            # Obtém a descrição do tipo de dado para exibir no seletor
-            tipo_dado_descricao = tipos_dados.get(str(tipo_dado), 'Texto')
-
-            # Exibe o seletor de formato para a coluna atual
-            formato_texto = st.selectbox(f'Selecione o formato para a coluna {coluna}', options=['Texto', 'Inteiro', 'Decimal', 'Data'])
-
-            # Converte o formato selecionado para o tipo correspondente
-            if formato_texto == 'Inteiro':
-                df[coluna] = df[coluna].astype(int)
-            elif formato_texto == 'Decimal':
-                df[coluna] = df[coluna].astype(float)
-            elif formato_texto == 'Data':
-                df[coluna] = pd.to_datetime(df[coluna], errors='coerce')
-
-        # Exibe o dataframe atualizado com os formatos selecionados
+        # Exibe o dataframe com as vírgulas removidas
         st.write(df)
 
         # Solicita ao usuário para inserir a chave e o código do produto
