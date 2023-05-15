@@ -13,6 +13,15 @@ def notas_complementares():
         # Lê os dados do arquivo XLSX
         df = pd.read_excel(uploaded_file)
 
+        # Substitui as vírgulas por nada (remove as vírgulas) na coluna 'cProd'
+        df['cProd'] = df['cProd'].str.replace(',', '')
+
+        # Substitui as vírgulas por nada (remove as vírgulas) na coluna 'CFOP'
+        df['CFOP'] = df['CFOP'].str.replace(',', '')
+
+        # Substitui as vírgulas por pontos na coluna 'NCM'
+        df['NCM'] = df['NCM'].str.replace(',', '.')
+
         # Exibe o dataframe completo
         st.write(df)
 
