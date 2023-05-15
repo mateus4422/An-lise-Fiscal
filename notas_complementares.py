@@ -14,9 +14,6 @@ def notas_complementares():
         # Lê os dados do arquivo XLSX
         df = pd.read_excel(uploaded_file)
 
-        # Exibe o dataframe completo
-        st.write(df)
-
         # Remove caracteres especiais das colunas 'Código de Produto' (cProd), 'CFOP' e 'NCM'
         if 'Código de Produto' in df.columns:
             df['Código de Produto'] = df['Código de Produto'].apply(lambda x: re.sub(r'\W+', '', str(x)))
@@ -27,7 +24,7 @@ def notas_complementares():
         if 'NCM' in df.columns:
             df['NCM'] = df['NCM'].apply(lambda x: re.sub(r'\W+', '', str(x)))
 
-        # Exibe o dataframe com os caracteres especiais removidos
+        # Exibe o dataframe com as alterações
         st.write(df)
 
         # Solicita ao usuário para inserir a chave e o código do produto
