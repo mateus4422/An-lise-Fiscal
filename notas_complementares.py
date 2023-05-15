@@ -23,4 +23,4 @@ def notas_complementares():
         # Exibe os dados filtrados
         st.write(filtered_df)
 
-st.write()
+notas_fiscais()
