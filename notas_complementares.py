@@ -12,11 +12,7 @@ def notas_complementares():
     if file:
         df = pd.read_excel(file)
 
-        # Substituir vírgulas e pontos
-        df['Código de Produto'] = df['Código de Produto'].str.replace(',', '')
-        df['CFOP'] = df['CFOP'].str.replace(',', '')
-        df['NCM'] = df['NCM'].str.replace(',', '.')
-        
+
         st.write(df)  # Exibir o DataFrame
 
         # Solicitar ao usuário a chave e o código do produto
