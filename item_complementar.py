@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 
-def read_xlsx(file):
+def item_complementar(file):
     return pd.read_excel(file)
 
 st.title("Leitor de Arquivos Excel")
