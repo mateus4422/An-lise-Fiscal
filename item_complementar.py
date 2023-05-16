@@ -6,7 +6,7 @@ def item_complementar(file):
 
 st.title("Leitor de Arquivos Excel")
 
-uploaded_file = st.file_uploader("Selecione o arquivo Excel:", type=["xlsx"])
+uploaded_file = st.file_uploader("Selecione o arquivo Excel:", type=['xlsx'])
 
 if uploaded_file is not None:
     df = read_xlsx(uploaded_file)
