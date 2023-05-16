@@ -1,13 +1,15 @@
 import streamlit as st
 import pandas as pd
 
-def item_complementar(file):
-    return pd.read_excel(file)
 
-st.title("Leitor de Arquivos Excel")
+def item_complementar():
+    def read_xlsx(file):
+        return pd.read_excel(file)
 
-uploaded_file = st.file_uploader("Selecione o arquivo Excel:", type=['xlsx'])
+    st.title("Leitor de Arquivos Excel")
 
-if uploaded_file is not None:
-    df = read_xlsx(uploaded_file)
-    st.write(df)
+    uploaded_file = st.file_uploader("Selecione o arquivo Excel:", type=["xlsx"])
+
+    if uploaded_file is not None:
+        df = read_xlsx(uploaded_file)
+        st.write(df)
