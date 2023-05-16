@@ -10,7 +10,7 @@ def main():
     st.title("Aplicativo de Análise Fiscal")
 
     st.sidebar.title("Menu")
-    menu_options = ["Notas Fiscais", "Notas Complementares", "EFD", "CAT", "Conversão de Código (NF Original)", "Análise Fiscal"]
+    menu_options = ["Notas Fiscais", "Notas Complementares", "EFD", "CAT", "Conversão de Código (NF Original)","Ítem Compplementar" "Análise Fiscal"]
     choice = st.sidebar.radio("Selecione uma opção", menu_options)
 
     if choice == "Notas Fiscais":
@@ -28,6 +28,9 @@ def main():
     if choice == "Conversão de Código (NF Original)":
         conversao_codigo()
 
+    if choice == "Conversão de Ítem (NF Complementar)":
+        conversao_codigo()
+        
     if choice == "Análise Fiscal":
         analise_fiscal()
 
