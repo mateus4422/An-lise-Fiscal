@@ -3,7 +3,7 @@ from notas_fiscais import notas_fiscais
 from notas_complementares import notas_complementares
 from efd import efd
 from cat import cat
-#from conversao_codigo import conversao_codigo
+from item_complementar import item_complementar
 #from analise_fiscal import analise_fiscal
 
 def main():
