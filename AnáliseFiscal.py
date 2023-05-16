@@ -29,7 +29,7 @@ def main():
         conversao_codigo()
 
     if choice == "Conversão de Ítem (NF Complementar)":
-        conversao_codigo()
+        item_complementar()
         
     if choice == "Análise Fiscal":
         analise_fiscal()
