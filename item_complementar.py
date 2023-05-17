@@ -19,7 +19,8 @@ def item_complementar():
         df = read_xlsx(uploaded_file)
         
         # Renomeie as colunas
-        df.rename(columns={df.columns[2]: 'cprod'}, inplace=True)
+      df.rename(columns={df.columns[2]: 'cprod'}, inplace=True)
+
 
 
         st.write(df)
