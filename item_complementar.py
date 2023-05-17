@@ -1,8 +1,7 @@
 import streamlit as st
 import pandas as pd
 
-
-def item_complementar(file):
+def item_complementar():
     def read_xlsx(file):
         return pd.read_excel(file)
 
@@ -13,5 +12,3 @@ def item_complementar(file):
     if uploaded_file is not None:
         df = read_xlsx(uploaded_file)
         st.write(df)
-        
-
