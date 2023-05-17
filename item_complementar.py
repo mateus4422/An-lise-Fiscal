@@ -14,4 +14,4 @@ def item_complementar(file):
         df = read_xlsx(uploaded_file)
         st.write(df)
         
-  item_complementar()
+
