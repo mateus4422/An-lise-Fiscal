@@ -13,3 +13,5 @@ def item_complementar(file):
     if uploaded_file is not None:
         df = read_xlsx(uploaded_file)
         st.write(df)
+        
+  item_complementar()
