@@ -6,7 +6,7 @@ def item_complementar():
         df = pd.read_excel(file)
 
         # Remova quaisquer caracteres não numéricos e converta para int
-        df['cprod'] = df['existing_column'].str.replace(',', '').str.extract('(\d+)', expand=False).astype(int)
+       df['cprod'] = df['cprod'].str.replace(',', '').str.extract('(\d+)', expand=False).astype(int)
 
 
         return df
