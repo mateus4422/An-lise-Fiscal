@@ -7,7 +7,7 @@ def item_complementar():
 
         # Remova quaisquer caracteres não numéricos e converta para int
         df['cprod'] = df['existing_column'].str.replace(',', '').str.extract('(\d+)', expand=False).astype(int)
-)
+
 
         return df
 
