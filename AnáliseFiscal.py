@@ -28,7 +28,7 @@ def main():
     if choice == "Conversão de Código (NF Original)":
         conversao_codigo()
 
-    if choice == "Conversão de Ítem (NF Complementar)":
+    if choice == "Ítem Complementar":
         item_complementar()
         
     if choice == "Análise Fiscal":
