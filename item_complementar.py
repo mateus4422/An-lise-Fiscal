@@ -4,17 +4,8 @@ import pandas as pd
 def item_complementar():
     def read_xlsx(file):
         df = pd.read_excel(file)
-
-        # Renomeie a coluna 2
-        df.rename(columns={df.columns[2]: 'Código do Produto'}, inplace=True)
-        
-        # Verifica o tipo de dados da coluna
-        if df['Código do Produto'].dtype == 'object':
-            # Remova quaisquer caracteres não numéricos e converta para int
-            df['Código do Produto'] = df['Código do Produto'].str.replace(',', '').str.extract('(\d+)', expand=False).astype(int)
-        else:
-            st.write("A coluna 'Código do Produto' não contém strings.")
-
+        # Garante que os dados da coluna 2 estão no formato correto
+        df[df.columns[2]] = df[df.columns[2]].replace(',', '', regex=True).astype(int)
         return df
 
     st.title("Leitor de Arquivos Excel")
@@ -23,5 +14,6 @@ def item_complementar():
 
     if uploaded_file is not None:
         df = read_xlsx(uploaded_file)
-
         st.write(df)
+
+item_complementar()
