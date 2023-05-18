@@ -5,8 +5,11 @@ def item_complementar():
     def read_xlsx(file):
         df = pd.read_excel(file)
 
+        # Renomeie a coluna 2
+        df.rename(columns={df.columns[2]: 'Código do Produto'}, inplace=True)
+        
         # Remova quaisquer caracteres não numéricos e converta para int
-        df['cprod'] = df['cprod'].str.replace(',', '').str.extract('(\d+)', expand=False).astype(int)
+        df['Código do Produto'] = df['Código do Produto'].str.replace(',', '').str.extract('(\d+)', expand=False).astype(int)
 
         return df
 
@@ -16,8 +19,5 @@ def item_complementar():
 
     if uploaded_file is not None:
         df = read_xlsx(uploaded_file)
-        
-        # Renomeie as colunas
-        df.rename(columns={df.columns[2]: 'cprod'}, inplace=True)
 
         st.write(df)
