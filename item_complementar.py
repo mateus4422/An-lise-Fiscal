@@ -8,8 +8,12 @@ def item_complementar():
         # Renomeie a coluna 2
         df.rename(columns={df.columns[2]: 'Código do Produto'}, inplace=True)
         
-        # Remova quaisquer caracteres não numéricos e converta para int
-        df['Código do Produto'] = df['Código do Produto'].str.replace(',', '').str.extract('(\d+)', expand=False).astype(int)
+        # Verifica o tipo de dados da coluna
+        if df['Código do Produto'].dtype == 'object':
+            # Remova quaisquer caracteres não numéricos e converta para int
+            df['Código do Produto'] = df['Código do Produto'].str.replace(',', '').str.extract('(\d+)', expand=False).astype(int)
+        else:
+            st.write("A coluna 'Código do Produto' não contém strings.")
 
         return df
 
